@@ -52,7 +52,7 @@ def imprimirBasePaquetes(pbasePaquete):
     lineas = "-"*140 #Esto es para no hacer la multiplicación varias veces
     print(lineas+ "\n" + agregarEspacios("Número de paquete", 35) + agregarEspacios("Número de teléfono", 35) + agregarEspacios("Sucursal", 30) + agregarEspacios("Días hábiles", 25) + agregarEspacios("Estado", 15) + "\n" + lineas)
     for llave in sacarLlavesDicc(pbasePaquete):
-        print(agregarEspacios(str(llave), 35) + agregarEspacios(pbasePaquete[llave][0], 35) + agregarEspacios(pbasePaquete[llave][1], 30) + agregarEspacios(pbasePaquete[llave][2], 25) + agregarEspacios(pbasePaquete[llave][-1], 15) + "\n" + lineas)
+        print(agregarEspacios(str(llave), 35) + agregarEspacios(str(pbasePaquete[llave][0]), 35) + agregarEspacios(pbasePaquete[llave][1], 30) + agregarEspacios(str(pbasePaquete[llave][2]), 25) + agregarEspacios(str(pbasePaquete[llave][-1]), 15) + "\n" + lineas)
     return ""
 
 ############################################################
