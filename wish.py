@@ -139,15 +139,28 @@ def validarTelefono():
 
 def menuReportes(plargoDiccionario, pbaseDiccionario):
     while True:
+        """
+        Funcionamiento: Es el menú de reportes
+        Entradas:
+        -plargoDiccionario(int): Es la cantidad de elementos que tiene el diccionario
+        -pabseDiccionario(dict): Es el diccionario que tiene los paquetes
+        Salidas: Na
+        """
         print("\nMenú de reportes"
         "\n1. Total de paquetes registrados."
         "\n2. Imprimir todos los paquetes."
         "\n3. Salir")
         opcion = ""
         if opcion == "1":
-            return cantidadPaquetes(plargoDiccionario)
+            cantidadPaquetes(plargoDiccionario)
         elif opcion == "2":
-            return 
+            imprimirBasePaquetes(pbaseDiccionario)
+        elif opcion == "3":
+            break
+        else:
+            imprimirError("Se debe ingresar un número del (1) al (3).")
+    print("Regresando al menú principal...")
+    return ""
 
 def validarMenuReportes(pbaseDiccionario):
     """
