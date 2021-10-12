@@ -14,10 +14,10 @@ def cantidadPaquetes(ppaquetes):
     """
     Funcionamiento: Imprime la cantidad de paquetes que hay en el diccionario
     Entradas:
-    -ppaquetes(dict): Es el diccionario con los paquetes
+    -ppaquetes(int): es el número de paquetes
     Salidas: Na
     """
-    return f"El total de paquetes registrados es: {len(ppaquetes)}"
+    return f"El total de paquetes registrados es: {ppaquetes}"
     
 def agregarEspacios(string, tamano):
     """
