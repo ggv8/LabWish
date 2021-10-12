@@ -137,7 +137,7 @@ def validarTelefono():
             return entrada
         imprimirError("Formato inválido, ingrese 8 dígitos") # Restricción de Valor
 
-def menuReportes():
+def menuReportes(plargoDiccionario, pbaseDiccionario):
     while True:
         print("\nMenú de reportes"
         "\n1. Total de paquetes registrados."
@@ -145,6 +145,8 @@ def menuReportes():
         "\n3. Salir")
         opcion = ""
         if opcion == "1":
+            return cantidadPaquetes(plargoDiccionario)
+        elif opcion == "2":
             return 
 
 def validarMenuReportes(pbaseDiccionario):
@@ -156,7 +158,7 @@ def validarMenuReportes(pbaseDiccionario):
     """
     largoDiccionario = len(pbaseDiccionario)
     if pbaseDiccionario > 0:
-        return ""
+        return menuReportes(largoDiccionario, pbaseDiccionario)
     imprimirError("Todavía no se ha insertado ningún paquete")
     return ""
 ##############################################################
