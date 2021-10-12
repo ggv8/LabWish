@@ -137,6 +137,28 @@ def validarTelefono():
             return entrada
         imprimirError("Formato inválido, ingrese 8 dígitos") # Restricción de Valor
 
+def menuReportes():
+    while True:
+        print("\nMenú de reportes"
+        "\n1. Total de paquetes registrados."
+        "\n2. Imprimir todos los paquetes."
+        "\n3. Salir")
+        opcion = ""
+        if opcion == "1":
+            return 
+
+def validarMenuReportes(pbaseDiccionario):
+    """
+    Funcionamiento: Valida la entrada al menu de reportes
+    Entradas: 
+    -pbaseDiccionario(dict): Es el diccionario a evaluar
+    Salidas: Retorna la funcion menuReportes
+    """
+    largoDiccionario = len(pbaseDiccionario)
+    if pbaseDiccionario > 0:
+        return ""
+    imprimirError("Todavía no se ha insertado ningún paquete")
+    return ""
 ##############################################################
 #####                Programa Principal                  #####
 ##############################################################
