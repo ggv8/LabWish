@@ -136,6 +136,28 @@ def validarTelefono():
         if re.match("^\d{8}$", entrada):
             return entrada
         imprimirError("Formato inválido, ingrese 8 dígitos") # Restricción de Valor
+##########################################################################################################
+def cantidadPaquetes(ppaquetes):
+    """
+    Funcionamiento: Imprime la cantidad de paquetes que hay en el diccionario
+    Entradas:
+    -ppaquetes(int): es el número de paquetes
+    Salidas: Na
+    """
+    return f"El total de paquetes registrados es: {ppaquetes}"
+
+def imprimirBasePaquetes(pbasePaquete):
+    """
+    Funcionamiento: Imprime todos los paquetes que estén almacenados en la base
+    Entradas:
+    -pbasePaquete(dict): es el diccionario con todos los paquetes
+    Salidas: Na
+    """
+    lineas = "-"*140 #Esto es para no hacer la multiplicación varias veces
+    print(lineas+ "\n" + agregarEspacios("Número de paquete", 35) + agregarEspacios("Número de teléfono", 35) + agregarEspacios("Sucursal", 30) + agregarEspacios("Días hábiles", 25) + agregarEspacios("Estado", 15) + "\n" + lineas)
+    for llave in sacarLlavesDicc(pbasePaquete):
+        print(agregarEspacios(str(llave), 35) + agregarEspacios(str(pbasePaquete[llave][0]), 35) + agregarEspacios(pbasePaquete[llave][1], 30) + agregarEspacios(str(pbasePaquete[llave][2]), 25) + agregarEspacios(str(pbasePaquete[llave][-1]), 15) + "\n" + lineas)
+    return ""
 
 def menuReportes(plargoDiccionario, pbaseDiccionario):
     while True:
@@ -150,7 +172,7 @@ def menuReportes(plargoDiccionario, pbaseDiccionario):
         "\n1. Total de paquetes registrados."
         "\n2. Imprimir todos los paquetes."
         "\n3. Salir")
-        opcion = ""
+        opcion = input("Ingrese una opción: ")
         if opcion == "1":
             cantidadPaquetes(plargoDiccionario)
         elif opcion == "2":
@@ -170,7 +192,7 @@ def validarMenuReportes(pbaseDiccionario):
     Salidas: Retorna la funcion menuReportes
     """
     largoDiccionario = len(pbaseDiccionario)
-    if pbaseDiccionario > 0:
+    if largoDiccionario > 0:
         return menuReportes(largoDiccionario, pbaseDiccionario)
     imprimirError("Todavía no se ha insertado ningún paquete")
     return ""
@@ -180,3 +202,5 @@ def validarMenuReportes(pbaseDiccionario):
 
 paquetes = {0:[], 1:[], 2:[], 3:[]} # Diccionario de prueba, reemplazar por dict vació al final
 
+diccionario = {244: ["12345678", "Cartago", "10", "2"], 5:["88888888", "San José", "3", "1"], -2:["22222222", "limón", "1", "1"]}
+print(validarMenuReportes(diccionario))
