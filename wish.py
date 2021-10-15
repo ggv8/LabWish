@@ -98,7 +98,7 @@ def opcionInsistirEstadoPaquete():
     opcion = " "
     while opcion[0] != True:
         opcion = pedirEstadoPaquete()
-    return opcion[1]
+    return int(opcion[1])
 
 def validarPaquete():
     """
