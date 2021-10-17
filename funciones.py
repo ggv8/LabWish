@@ -1,11 +1,7 @@
 # Elaborador por: Camilo Sánchez Rodríguez, Gabriel Gomez Vega
 # Fecha de creación: 12/10/2021, 11:16 AM
-# Última edición: XX/10/2021, XX:XX XX
+# Última edición: 16/10/2021, 11:03 PM
 # Versión: 3.9.6
-
-##############################################################
-#####              Importación de Librerías              #####
-##############################################################
 
 ##############################################################
 #####              Definición de Funciones               #####
@@ -46,10 +42,18 @@ def imprimirError(ptexto):
     print("_"*50 + "\n")
     return ""
 
-############################################################
-# Te lo voy a dejar aquí por si querés hacer alguna prueba #
-############################################################
-
-diccionario = {244: ["12345678", "Cartago", "10", "2"], 5:["88888888", "San José", "3", "1"], -2:["22222222", "limón", "1", "1"]}
-
-print(f"\nEste es el diccionario de prueba: {diccionario}\n")
+def confirmarOpcion(ptitulo, pmensaje):
+    """
+    Función:    Pide confirmación antes de realizar una tarea
+    Entradas:   ptitulo, pmensaje (str) - Título y contenido de opcion
+    Salidas:    Retorna True (Aceptar), False (Cancelar)
+    """
+    while True:
+        print("\n" + f"{ptitulo}".center(50,"=") + "\n")
+        print(pmensaje.center(50," "))
+        entrada = input("\n" + "<A> Aceptar  <C> Cancelar".center(49," "))
+        if entrada == "A":
+            return True
+        elif entrada == "C":
+            return False
+        imprimirError("Confirme o cancele con A o C") # Restricción: Entrada != B o C

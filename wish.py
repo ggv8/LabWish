@@ -1,13 +1,7 @@
 # Elaborador por: Camilo Sánchez Rodríguez, Gabriel Gomez Vega
 # Fecha de creación: 12/10/2021, 11:16 AM
-# Última edición: XX/10/2021, XX:XX XX
+# Última edición: 16/10/2021, 11:03 PM
 # Versión: 3.9.6
-
-##############################################################
-#####                 Variables Globales                 #####
-##############################################################
-
-paquetes = cargarBD()
 
 ##############################################################
 #####              Importación de Librerías              #####
@@ -18,10 +12,14 @@ from archivo import *
 from funciones import *
 
 ##############################################################
-#####              Definición de Funciones               #####
+#####                 Variables Globales                 #####
 ##############################################################
 
+paquetes = cargarBD()
 
+##############################################################
+#####              Definición de Funciones               #####
+##############################################################
 
 def validarNombreSucursal(pnombre):
     """
@@ -88,7 +86,7 @@ def opcionInsistirEstadoPaquete():
     opcion = " "
     while opcion[0] != True:
         opcion = pedirEstadoPaquete()
-    return int(opcion[1])
+    return opcion[1]
 
 def validarPaquete():
     """
@@ -127,6 +125,74 @@ def validarTelefono():
             return entrada
         imprimirError("Formato inválido, ingrese 8 dígitos") # Restricción de Valor
 
+def ingresarPaquete():
+    """
+    Función:    Submenú de entradas requeridas para registrar datos
+    Entradas:   paquetes (dict) - Diccionario de paquetes
+    Salidas:    Retorna registro de datos
+    """
+    while True:
+        print("\n" + " Registro de Datos ".center(50,"=") + "\n")
+        numero = validarPaquete()
+        if revisarPaquete(numero, paquetes):   # Restriccion: Paquete repetido
+            imprimirError("No se puede repetir número de paquete")
+            continue
+        telefono, sucursal = validarTelefono(), insistirNombreSucursal()
+        estado = opcionInsistirEstadoPaquete()
+        dias = 10
+        if estado != '1':   # Si estado es 2 o 3, cambia dias hábiles a 0
+            dias = 0
+        paquetes[numero] = [telefono, sucursal, dias, estado] # Crea paquete nuevo
+        if not confirmarOpcion("", "¿Desea ingresar más paquetes?"):
+            break   # Cierra submenu
+    return paquetes
+
+def actualizarPaquete():
+    """
+    Función:    Submenú de entradas requeridas para actualizar datos
+    Entradas:   paquetes (dict) - Diccionario de paquetes
+    Salidas:    Retorna registro de datos
+    """
+    while True:
+        print("\n" + " Modificación de Datos ".center(50,"=") + "\n")
+        numero = validarPaquete()
+        if not revisarPaquete(numero, paquetes): # Restriccion: Paquete no registrado
+            imprimirError("No se encuentra registrado el paquete")
+            continue
+        estado = opcionInsistirEstadoPaquete()
+        if estado == paquetes[numero][-1]:     # Restricción: Estado ya registrado
+            imprimirError("El paquete ya tiene ese estado registrado")
+            continue
+        if confirmarOpcion(" ADVERTENCIA ", "¿Seguro que desea realizar este cambio?"):
+            dias = 0
+            if estado == '1':   # Si estado es 1, cambia dias habiles a 5
+                dias = 5
+            paquetes[numero][-2] = dias    # Actualizan dias habiles y estado
+            paquetes[numero][-1] = estado
+        if not confirmarOpcion("", "¿Desea modificar más paquetes?"):
+            break
+    return paquetes
+
+def eliminarPaquete():
+    """
+    Función:    Submenú de entradas requeridas para eliminar datos
+    Entradas:   paquetes (dict) - Diccionario de paquetes
+    Salidas:    Retorna registro de datos
+    """
+    while True:
+        print("\n" + " Eliminación de Datos ".center(50,"=") + "\n")
+        numero = validarPaquete()
+        if not revisarPaquete(numero, paquetes):   # Restricción: Paquete no registrado
+            imprimirError("No se encuentra registrado el paquete")
+            continue
+        if confirmarOpcion(" ADVERTENCIA ", "¿Seguro que desea eliminar este paquete?"):
+            del paquetes[numero]
+        if not validarMatriz():
+            break
+        if not confirmarOpcion("", "¿Desea eliminar más paquetes?"):
+            break
+    return paquetes
+
 def cantidadPaquetes(ppaquetes):
     """
     Funcionamiento: Imprime la cantidad de paquetes que hay en el diccionario
@@ -134,7 +200,8 @@ def cantidadPaquetes(ppaquetes):
     -ppaquetes(int): es el número de paquetes
     Salidas: Na
     """
-    return f"El total de paquetes registrados es: {ppaquetes}"
+    print(f"\nEl total de paquetes registrados es: {ppaquetes}")
+    return ""
 
 def imprimirBasePaquetes(pbasePaquete):
     """
@@ -144,25 +211,26 @@ def imprimirBasePaquetes(pbasePaquete):
     Salidas: Na
     """
     lineas = "-"*140 #Esto es para no hacer la multiplicación varias veces
-    print(lineas+ "\n" + agregarEspacios("Número de paquete", 35) + agregarEspacios("Número de teléfono", 35) + agregarEspacios("Sucursal", 30) + agregarEspacios("Días hábiles", 25) + agregarEspacios("Estado", 15) + "\n" + lineas)
+    print("\n" + lineas + "\n" + agregarEspacios("Número de paquete", 35) + agregarEspacios("Número de teléfono", 35) + agregarEspacios("Sucursal", 30) + agregarEspacios("Días hábiles", 25) + agregarEspacios("Estado", 15) + "\n" + lineas)
     for llave in sacarLlavesDicc(pbasePaquete):
         print(agregarEspacios(str(llave), 35) + agregarEspacios(str(pbasePaquete[llave][0]), 35) + agregarEspacios(pbasePaquete[llave][1], 30) + agregarEspacios(str(pbasePaquete[llave][2]), 25) + agregarEspacios(str(pbasePaquete[llave][-1]), 15) + "\n" + lineas)
     return ""
 
 def menuReportes(plargoDiccionario, pbaseDiccionario):
-    while True:
-        """
-        Funcionamiento: Es el menú de reportes
-        Entradas:
+    """
+    Funcionamiento: Es el menú de reportes
+    Entradas:
         -plargoDiccionario(int): Es la cantidad de elementos que tiene el diccionario
         -pabseDiccionario(dict): Es el diccionario que tiene los paquetes
-        Salidas: Na
-        """
-        print("\nMenú de reportes"
-        "\n1. Total de paquetes registrados."
-        "\n2. Imprimir todos los paquetes."
-        "\n3. Salir")
-        opcion = input("Ingrese una opción: ")
+    Salidas: N/A
+    """
+    while True:
+        lista = ("\n1. Total de paquetes registrados.",
+                 "2. Imprimir todos los paquetes.", "3. Salir")
+        print("\n" + " Menú de Reportes ".center(50, "="))
+        for elemento in lista:
+            print(elemento)
+        opcion = input("\nIngrese una opción: ")
         if opcion == "1":
             cantidadPaquetes(plargoDiccionario)
         elif opcion == "2":
@@ -174,38 +242,42 @@ def menuReportes(plargoDiccionario, pbaseDiccionario):
     print("Regresando al menú principal...")
     return ""
 
-def validarMenuReportes(pbaseDiccionario):
+def validarMatriz():
     """
-    Funcionamiento: Valida la entrada al menu de reportes
-    Entradas: 
-    -pbaseDiccionario(dict): Es el diccionario a evaluar
-    Salidas: Retorna la funcion menuReportes
+    Funcionamiento: Valida la entrada al menu de reportes o de eliminacion de datos
+    Entradas: N/A
+    Salidas: Retorna True si hay paquetes en matriz, False si no
     """
-    largoDiccionario = len(pbaseDiccionario)
-    if largoDiccionario > 0:
-        return menuReportes(largoDiccionario, pbaseDiccionario)
-    imprimirError("Todavía no se ha insertado ningún paquete")
-    return ""
+    if len(paquetes) > 0:
+        return True
+    imprimirError("No hay paquetes registrados")
+    return False
+
 ##############################################################
 #####                Programa Principal                  #####
 ##############################################################
 
-opciones = ("1. Insertar Paquete", "2. Actualizar Paquete",
+opciones = ("\n1. Insertar Paquete", "2. Actualizar Paquete",
             "3. Eliminar Paquete", "4. Reportes", "0. Salir")
+
 while True:
     print(" Menú Principal ".center(50, "="))
-    for string in opciones:
+    for string in opciones: # Imprime cada opcion
         print(string)
+    guardarBD(paquetes)     # Guarda cambios de paquetes en archivo
     opcion = input("\nIngrese una opción: ")
-    if opcion == "1":
-        pass
-    elif opcion == "2":
-        pass
+    if opcion == "1":           # Inserta paquetes en diccionario
+        ingresarPaquete()
+    elif opcion == "2":         # Modifica paquetes
+        actualizarPaquete()
     elif opcion == "3":
-        pass
+        if validarMatriz():     # Permite eliminar paquetes si los hay
+            eliminarPaquete()
     elif opcion == "4":
-        pass
+        if validarMatriz():     # Muestra reportes sólo si hay paquetes
+            menuReportes(len(paquetes), paquetes)
     elif opcion == "0":
-        pass
-    else:
+        print("\nGracias por usar el sistema.")
+        break
+    else:                   # Restricción: Opción Inválida
         imprimirError("Opción Inválida")

@@ -1,6 +1,6 @@
 # Elaborador por: Camilo Sánchez Rodríguez, Gabriel Gomez Vega
 # Fecha de creación: 12/10/2021, 11:16 AM
-# Última edición: XX/10/2021, XX:XX XX
+# Última edición: 16/10/2021, 11:03 PM
 # Versión: 3.9.6
 
 ##############################################################
@@ -30,7 +30,7 @@ def cargarBD():
 def guardarBD(pcontenido):
     """
     Función:    Guarda contenido en archivo binario
-    Entradas:   N/A
+    Entradas:   pcontenido (dict) - Diccionario de paquetes
     Salidas:    N/A
     """
     file = open('wishBD', 'wb')
