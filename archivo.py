@@ -4,5 +4,36 @@
 # Versión: 3.9.6
 
 ##############################################################
+#####              Importación de Librerías              #####
+##############################################################
+
+import pickle
+
+##############################################################
 #####              Definición de Funciones               #####
 ##############################################################
+
+def cargarBD():
+    """
+    Función:    Verifica si existe Base de Datos previa
+    Entradas:   N/A
+    Salidas:    Retorna contenidos de BD. De lo contrario, retorna None
+    """
+    try:
+        file = open('wishBD', 'rb')
+        contenido = pickle.load(file)
+        file.close()
+        return contenido
+    except (EOFError, FileNotFoundError): # None indica BD no existente o vacía
+        return {}
+
+def guardarBD(pcontenido):
+    """
+    Función:    Verifica si existe Base de Datos previa
+    Entradas:   N/A
+    Salidas:    Retorna contenidos de BD. De lo contrario, retorna None
+    """
+    file = open('wishBD', 'wb')
+    pickle.dump(pcontenido, file)
+    file.close()
+    return contenido

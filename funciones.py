@@ -34,6 +34,18 @@ def sacarLlavesDicc(pdiccionario):
     listaLlaves.sort()
     return listaLlaves
 
+def imprimirError(ptexto):
+    """
+    Función:    Muestra error a usuario antes de continuar el programa
+    Entradas:   ptexto (str) - Mensaje de error
+    Salidas:    Imprime título y mensaje de error
+    """
+    print("", "_"*50, "|" + "Error".center(48, ' ') + "|", "-"*50, sep="\n")
+    print("\n" + ptexto.center(50, " ") + "\n")
+    input("Continuar <ENTER>".center(50, " "))
+    print("_"*50 + "\n")
+    return ""
+
 ############################################################
 # Te lo voy a dejar aquí por si querés hacer alguna prueba #
 ############################################################

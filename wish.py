@@ -3,13 +3,11 @@
 # Última edición: XX/10/2021, XX:XX XX
 # Versión: 3.9.6
 
+##############################################################
+#####                 Variables Globales                 #####
+##############################################################
 
-# Template documentación funciones
-"""
-    Función:
-    Entradas:
-    Salidas:
-    """
+paquetes = {} # Cargar paquetes
 
 ##############################################################
 #####              Importación de Librerías              #####
@@ -17,21 +15,13 @@
 
 import re
 from funciones import *
+import archivo
+
 ##############################################################
 #####              Definición de Funciones               #####
 ##############################################################
 
-def imprimirError(ptexto):
-    """
-    Función:    Muestra error a usuario antes de continuar el programa
-    Entradas:   ptexto (str) - Mensaje de error
-    Salidas:    Imprime título y mensaje de error
-    """
-    print("", "_"*50, "|" + "Error".center(48, ' ') + "|", "-"*50, sep="\n")
-    print("\n" + ptexto.center(50, " ") + "\n")
-    input("Continuar <ENTER>".center(50, " "))
-    print("_"*50 + "\n")
-    return ""
+
 
 def validarNombreSucursal(pnombre):
     """
@@ -136,7 +126,7 @@ def validarTelefono():
         if re.match("^\d{8}$", entrada):
             return entrada
         imprimirError("Formato inválido, ingrese 8 dígitos") # Restricción de Valor
-##########################################################################################################
+
 def cantidadPaquetes(ppaquetes):
     """
     Funcionamiento: Imprime la cantidad de paquetes que hay en el diccionario
