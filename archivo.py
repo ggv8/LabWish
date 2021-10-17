@@ -17,7 +17,7 @@ def cargarBD():
     """
     Función:    Verifica si existe Base de Datos previa
     Entradas:   N/A
-    Salidas:    Retorna contenidos de BD. De lo contrario, retorna None
+    Salidas:    Retorna contenidos de BD. De lo contrario, retorna {}
     """
     try:
         file = open('wishBD', 'rb')
@@ -29,11 +29,11 @@ def cargarBD():
 
 def guardarBD(pcontenido):
     """
-    Función:    Verifica si existe Base de Datos previa
+    Función:    Guarda contenido en archivo binario
     Entradas:   N/A
-    Salidas:    Retorna contenidos de BD. De lo contrario, retorna None
+    Salidas:    N/A
     """
     file = open('wishBD', 'wb')
     pickle.dump(pcontenido, file)
     file.close()
-    return contenido
+    return ""

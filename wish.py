@@ -7,15 +7,15 @@
 #####                 Variables Globales                 #####
 ##############################################################
 
-paquetes = {} # Cargar paquetes
+paquetes = cargarBD()
 
 ##############################################################
 #####              Importación de Librerías              #####
 ##############################################################
 
 import re
+from archivo import *
 from funciones import *
-import archivo
 
 ##############################################################
 #####              Definición de Funciones               #####
@@ -190,7 +190,22 @@ def validarMenuReportes(pbaseDiccionario):
 #####                Programa Principal                  #####
 ##############################################################
 
-paquetes = {0:[], 1:[], 2:[], 3:[]} # Diccionario de prueba, reemplazar por dict vació al final
-
-diccionario = {244: ["12345678", "Cartago", "10", "2"], 5:["88888888", "San José", "3", "1"], -2:["22222222", "limón", "1", "1"]}
-print(validarMenuReportes(diccionario))
+opciones = ("1. Insertar Paquete", "2. Actualizar Paquete",
+            "3. Eliminar Paquete", "4. Reportes", "0. Salir")
+while True:
+    print(" Menú Principal ".center(50, "="))
+    for string in opciones:
+        print(string)
+    opcion = input("\nIngrese una opción: ")
+    if opcion == "1":
+        pass
+    elif opcion == "2":
+        pass
+    elif opcion == "3":
+        pass
+    elif opcion == "4":
+        pass
+    elif opcion == "0":
+        pass
+    else:
+        imprimirError("Opción Inválida")
